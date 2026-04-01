@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import ReactPaginateModule from "react-paginate";
-const ReactPaginate =
-  (ReactPaginateModule as any).default ?? ReactPaginateModule;
-
+import ReactPaginate from "react-paginate";
 import toast, { Toaster } from "react-hot-toast";
 
 import css from "./App.module.css";
@@ -69,7 +66,9 @@ export default function App() {
               pageCount={totalPages}
               pageRangeDisplayed={5}
               marginPagesDisplayed={1}
-              onPageChange={({ selected }) => setPage(selected + 1)}
+              onPageChange={({ selected }: { selected: number }) =>
+                setPage(selected + 1)
+              }
               forcePage={page - 1}
               containerClassName={css.pagination}
               activeClassName={css.active}
