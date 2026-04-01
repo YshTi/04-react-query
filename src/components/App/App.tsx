@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import ReactPaginateModule from "react-paginate";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -33,6 +33,7 @@ export default function App() {
     queryFn: () => fetchMovies(query, page),
     enabled: query.trim() !== "",
     retry: false,
+    placeholderData: keepPreviousData,
   });
 
   const movies = data?.results ?? [];
@@ -70,7 +71,7 @@ export default function App() {
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
 
-      {!isLoading && !isError && movies.length > 0 && (
+      {!isError && movies.length > 0 && (
         <>
           <MovieGrid movies={movies} onSelect={handleSelectMovie} />
 
